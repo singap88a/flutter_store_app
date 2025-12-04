@@ -24,43 +24,81 @@ class DetailsScreen extends StatelessWidget {
 
   AppBar detailsAppBar(BuildContext context) {
     return AppBar(
-      backgroundColor: kBackgroundColor,
+      backgroundColor: Colors.transparent,
       elevation: 0,
-      leading: IconButton(
-        padding: EdgeInsets.only(right: kDefaultPadding),
-        icon: Icon(
-          Icons.arrow_back,
-          color: kPrimaryColor,
+      leading: Container(
+        margin: EdgeInsets.all(8),
+        decoration: BoxDecoration(
+          color: Colors.white.withOpacity(0.9),
+          shape: BoxShape.circle,
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black12,
+              blurRadius: 6,
+              offset: Offset(0, 2),
+            ),
+          ],
         ),
-        onPressed: () {
-          Navigator.pop(context);
-        },
+        child: IconButton(
+          icon: Icon(
+            Icons.arrow_back,
+            color: kPrimaryColor,
+          ),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
       ),
       centerTitle: false,
       title: Text(
         'رجوع',
-        style: Theme.of(context).textTheme.bodyMedium,
+        style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+              color: Colors.white,
+              fontWeight: FontWeight.w600,
+            ),
       ),
       actions: [
-        Consumer<CartProvider>(
-          builder: (context, cart, child) {
-            return Padding(
-              padding: const EdgeInsets.symmetric(horizontal: kDefaultPadding),
-              child: Badge(
-                isLabelVisible: cart.itemCount > 0,
-                label: Text(cart.itemCount.toString()),
-                child: child!,
+        Container(
+          margin: EdgeInsets.only(right: 8),
+          decoration: BoxDecoration(
+            color: Colors.white.withOpacity(0.9),
+            shape: BoxShape.circle,
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black12,
+                blurRadius: 6,
+                offset: Offset(0, 2),
               ),
-            );
-          },
-          child: IconButton(
-            icon: Icon(Icons.shopping_cart, color: kPrimaryColor),
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => CartScreen()),
+            ],
+          ),
+          child: Consumer<CartProvider>(
+            builder: (context, cart, child) {
+              return Badge(
+                alignment: Alignment.topRight,
+                offset: Offset(4, -4),
+                backgroundColor: Colors.red,
+                textColor: Colors.white,
+                largeSize: 20,
+                isLabelVisible: cart.itemCount > 0,
+                label: Text(
+                  cart.itemCount.toString(),
+                  style: TextStyle(
+                    fontSize: 12,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                child: child!,
               );
             },
+            child: IconButton(
+              icon: Icon(Icons.shopping_cart, color: kPrimaryColor),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => CartScreen()),
+                );
+              },
+            ),
           ),
         ),
       ],
