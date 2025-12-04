@@ -3,7 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:store_app/constants.dart';
 import 'package:store_app/models/cart.dart';
-import 'package:store_app/screens/main_screen.dart';
+import 'package:store_app/core/widgets/main_screen.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
 void main() {
